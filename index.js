@@ -1,4 +1,5 @@
 
+import renderModalCard from './murkup';
 
 const ul = document.querySelector('.film-libary');
 const btn = document.querySelector('.btn');
@@ -14,23 +15,54 @@ const SearchMovie = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY
 
 
 
-input.addEventListener('input', () => {
+btn.addEventListener('click', () => {
     const inputValue = input.value;
 
     if (inputValue.length >= 2) {
-     btn.removeAttribute('disabled', false);
+        btn.removeAttribute('disabled', false);
         
     }
     fetchFilm(inputValue)
-        .then(renderCard)
+        .then(data => {
+            renderCard(data);
+            
+        })
+
         .catch((error) => console.log(error));
 });
 
-btn.addEventListener('click', () => {
-    getApiTrending().then(renderCard)
-   
+
+
+function renderCard(films) {
+    const murkup = renderModalCard(films);
+    ul.insertAdjacentHTML('beforeend', murkup)
+}
+
+// btn.addEventListener('click', (e) => {
+//     getIdApi(e.target.dataset.id)
+//         .then(fetchOneMovieInfo)
+
+// })
+
+ul.addEventListener('click', () => {
+    getIdApi(e.target.dataset.id)
+        .then(data => {
+            if (e.target.nodeName !== 'IMG') return;
+
+        });
+
 
 })
+
+// async function fetchFilm(searchQuery) {
+//     try {
+//         const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&page=1&include_adult=false&query=${searchQuery}`);
+//         const results = response.json();
+//         return results;
+//     } catch (error) {
+//         console.log(error);
+//     }
+// }
 
 
 function fetchFilm(searchQuery) {
@@ -51,20 +83,28 @@ function getApiTrending() {
         .then(data => data.results)
 }
 
+function getIdApi(movie_id) {
+    return fetch(`https://api.themoviedb.org/3/movie/${movie_id}?api_key=${API_KEY}&append_to_response`)
+      .then(response =>
+        response.json()
+        )
+        .then(data => data.results);
+}
+ 
 
-    
-function renderCard(films) {
-    const cardEl = films.map(film => {
-        return `<div class="card">
-        <img class="image" src="https://image.tmdb.org/t/p/w500${film.poster_path}" alt="${film.original_title}"  width=100/>
-        <h3 class="film-title">${film.original_title}</h3>
+
+// function renderCard(films) {
+//     const cardEl = films.map(film => {
+//         return `<div class="card">
+//         <img class="image" src="https://image.tmdb.org/t/p/w500${film.poster_path}" alt="${film.original_title}"  width=100  "/>
+//         <h3 class="film-title">${film.original_title}</h3>
        
     
-    </div>`
-    }).join('');
+//     </div>`
+//     }).join('');
     
-   ul.insertAdjacentHTML('afterbegin', cardEl);
-};
+//    ul.insertAdjacentHTML('afterbegin', cardEl);
+// };
 
 function renderCardGenres(genres) {
     const cardEl = genres.map(genre => {
@@ -76,38 +116,22 @@ function renderCardGenres(genres) {
    ul.insertAdjacentHTML('afterbegin', cardEl);
 };
 
+
+
+
+
+
+
    // return fetch(`${BASE_URL}?key=${API_KEY}&q=${this.searchQuery}&${filter}&per_page=40&page=${this.page}`)
         //   .then(response => response.json())
         //   .then(data => return data.hits);
 
-
-
-//         fetchUsersBtn.addEventListener("click", () => {
-//   fetchUsers()
-//     .then((users) => renderUserList(users))
-//     .catch((error) => console.log(error));
-// });
-
-// function fetchUsers() {
-//   return fetch("https://jsonplaceholder.typicode.com/users").then(
-//     (response) => {
-//       if (!response.ok) {
-//         throw new Error(response.status);
-//       }
-//       return response.json();
-//     }
-//   );
-// }
-
-// function renderUserList(users) {
-//   const markup = users
-//     .map((user) => {
-//       return `<li>
-//           <p><b>Name</b>: ${user.name}</p>
-//           <p><b>Email</b>: ${user.email}</p>
-//           <p><b>Company</b>: ${user.company.name}</p>
-//         </li>`;
-//     })
-//     .join("");
-//   userList.innerHTML = markup;
-// }
+function fetchOneMovieInfo(movie_id) {
+  const url = `https://api.themoviedb.org/3/movie/${movie_id}?api_key=${API_KEY}`;
+  return fetch(url)
+    .then(response => response.json())
+    .then(data => ({
+      ...data,
+      popularity: data.popularity.toFixed(1),
+    }));
+}
