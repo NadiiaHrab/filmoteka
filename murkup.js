@@ -1,23 +1,23 @@
  
-export default function renderModalCard(films) {
+function renderModalCard(films) {
     const cardEl = films.map(film => {
         return `<div class="modal-card">
     <img src="https://image.tmdb.org/t/p/w500${film.poster_path}" alt="${film.title}" width=240 data-action="${film.id}/>
     <h3 class="madal__title">${film.title}</h3>
-<div class="modal-list__wrap">
+<div class="card-list__wrap">
 <div class="wrap">
-    <ul class="modal__list">
-        <li class="modal__item">
-            <p class="modal__vote">Vote / Votes</p>
+    <ul class="list">
+        <li class="item">
+            <p class="text__vote">Vote / Votes</p>
         </li>
-        <li class="modal__item">
-            <p class="modal__vote">Popularity</p>
+        <li class="item">
+            <p class="text__vote">Popularity</p>
         </li>
-        <li class="modal__item">
-            <p class="modal__vote">Original Title</p>
+        <li class="item">
+            <p class="text__vote">Original Title</p>
         </li>
-        <li class="modal__item">
-            <p class="modal__vote">Genre </p>
+        <li class="item">
+            <p class="text__vote">Genre </p>
         </li>
     </ul>
 </div>
@@ -46,7 +46,7 @@ export default function renderModalCard(films) {
     }).join('');
 
     // ul.insertAdjacentHTML('afterbegin', cardEl);
-    return cardEl;
+    // return cardEl;
 }
 
 

@@ -30,25 +30,20 @@ ul {
     padding-left: 0;
 }
 
-img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-    transition: transform 250ms ease-out;
-}
 
-img:hover {
+
+/* img:hover {
     transform: scale(1.1);
 
-}
+} */
 
 .container {
-    width: 1200px;
-    padding-left: 15px;
-    padding-right: 15px;
+    width: 1280px;
+    padding-left: 16px;
+    padding-right: 16px;
     margin-left: auto;
     margin-right: auto;
-    /* outline:  1px solid brown; */
+    outline:  1px solid brown;
 
 }
 
@@ -57,12 +52,89 @@ img:hover {
 /* render moal card---------- */
 
 
-.modal-list__wrap {
+.card-list__wrap {
     display: flex;
     gap: 16px;
 }
 
 
-/* .list__wrap {
+
+
+/* FT-06 Зверстати контейнер головної сторінки для правильного позиціонування
+карток фільмів (мобілка, планшет, робочий стіл) */
+.trending-section {
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+.container {
+    width: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
+    margin-left: auto;
+    margin-right: auto;
+    outline: 1px solid brown;
+
+}
+
+@media screen and (min-width: 480px) {
+        .container  {
+            width: 480px;
+        } 
+        }
+     @media screen and (min-width: 768px) {
+            .container {
+                    width: 768px;
+                }
+        }
+    
+        @media screen and (min-width: 1200px) {
+        .container {
+                width: 1200px;
+            }
+        }
+
+img {
+    display: block;
+        max-width: 100%;
+        width: 100%;
+        height: auto;
+    /* transition: transform 250ms ease-out; */
+}
+
+.card__collection {
     display: flex;
-} */
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+@media screen and (min-width: 768px) {
+    .card__collection {
+        flex-direction: row;
+        gap: 32px;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .card__collection {
+        gap: 16px;
+    }
+}
+
+
+.card__item {
+    width: 280px;
+}
+ 
+@media screen and (min-width: 768px) {
+        .card__item {
+    width: calc((100% - 32px) / 2);
+    }
+        }
+       
+
+   @media screen and (min-width: 1200px) {
+       .card__item {
+           width: calc((100% - 32px) / 3);
+       }
+   }
+
