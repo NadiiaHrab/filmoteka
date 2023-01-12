@@ -1,10 +1,9 @@
-import genresData from './genres.json';
+import genresData from './genres.json' assert {type: 'json'};
 
 export default function makeFilmsMarkup(films) {
   return films
     .map(
-      ({
-        poster_path,
+      ({ poster_path,
         title,
         name,
         release_date,
@@ -25,25 +24,28 @@ export default function makeFilmsMarkup(films) {
             .join(', ');
         }
 
-        return `<li class="films__item" data-id=${id}>
-                <div class="films__img">
+        return `<li class="trending__item" data-id=${id}>
+        <a href="" class="trending__link">
+                <div class="trending__img">
                 <img src=https://image.tmdb.org/t/p/original${poster_path} alt="${
           title || name
         }" loading="lazy">
+        </a>
         </div>
-                <div class="films__description">
-                  <p class="films__title">${title || name}</p>
-                  <div class="films__meta">
-                    <p class="films__genres">${filmGenres || 'Action'}</p>
-                    <p class="films__data">${(release_date || first_air_date || '2023').slice(
+                <div class="trending__description">
+                  <p class="trending__title">${title || name}</p>
+                  <div class="trending__meta">
+                    <p class="trending__genres">${filmGenres || 'Action'}</p>
+                    <p class="trending__data">|${(release_date || first_air_date || '2023').slice(
                       0,
                       4,
                     )}</p>
-                    <span class="films__rating">${vote_average || '-'}</span>
+                    <span class="trending__rating">${vote_average || '-'}</span>
                   </div>
                 </div>
             </li>`;
       },
     )
     .join('');
+  
 }

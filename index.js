@@ -1,6 +1,6 @@
 
 
-import renderFilmsMarkup from './filmsListMarkupTempl';
+import makeFilmsMarkup from './filmsListMarkupTempl.js';
 const ul = document.querySelector('.trending__collection');
 
 const BASE_URL = 'https://api.themoviedb.org/3/';
@@ -8,7 +8,7 @@ const TRENDING = 'trending/movie/week';
 const API_KEY = '1d8f1c2313e3ed4d118cc85bb96261b9';
 
     getFetchTrending()
-        .then(renderCard)
+        .then(renderFilmsMarkup)
         .catch((error) => console.log(error));
 
 function getFetchTrending() {
@@ -19,14 +19,18 @@ function getFetchTrending() {
         .then(data => data.results)
 }
 
-// function renderFilmsMarkup(films) {
-//     const murkup = makeFilmsMarkup(films);
-//     ul.insertAdjacentHTML('beforeend', murkup)
-// }
-
-function renderCard(films) {
-  ul.innerHTML = renderFilmsMarkup(films);
+function renderFilmsMarkup(films) {
+  ul.innerHTML = makeFilmsMarkup(films);
 }
+
+
+
+
+
+
+// function renderCard(films) {
+//   ul.innerHTML = renderFilmsMarkup(films);
+// }
 
 // function renderTrendingCard(films) {
 //     const cardEl = films.map(film => {
