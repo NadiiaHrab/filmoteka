@@ -43,7 +43,7 @@ ul {
     padding-right: 16px;
     margin-left: auto;
     margin-right: auto;
-    outline:  1px solid brown;
+    /* outline:  1px solid brown; */
 
 }
 
@@ -51,35 +51,27 @@ ul {
 
 /* render moal card---------- */
 
-
-.card-list__wrap {
-    display: flex;
-    gap: 16px;
-}
-
-
-
-
 /* FT-06 Зверстати контейнер головної сторінки для правильного позиціонування
 карток фільмів (мобілка, планшет, робочий стіл) */
+
 .trending-section {
     padding-top: 60px;
     padding-bottom: 60px;
 }
 .container {
     width: 100%;
-    padding-left: 16px;
-    padding-right: 16px;
+    padding-left: 20px;
+    padding-right: 20px;
     margin-left: auto;
     margin-right: auto;
-    outline: 1px solid brown;
+    /* outline: 1px solid brown; */
 
 }
 
 @media screen and (min-width: 480px) {
         .container  {
             width: 480px;
-        } 
+} 
         }
      @media screen and (min-width: 768px) {
             .container {
@@ -95,45 +87,45 @@ ul {
 
 img {
     display: block;
-        max-width: 100%;
-        width: 100%;
-        height: auto;
+    max-width: 100%;
+    width: 100%;
+    height: auto;
     /* transition: transform 250ms ease-out; */
 }
 
-.card__collection {
+.trending__collection {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     gap: 20px;
 }
 @media screen and (min-width: 768px) {
-    .card__collection {
+    .trending__collection {
         flex-direction: row;
         gap: 32px;
     }
 }
 
 @media screen and (min-width: 1280px) {
-    .card__collection {
+    .trending__collection {
         gap: 16px;
     }
 }
 
 
-.card__item {
+.trending__item {
     width: 280px;
 }
  
 @media screen and (min-width: 768px) {
-        .card__item {
+        .trending__item {
     width: calc((100% - 32px) / 2);
     }
         }
        
 
    @media screen and (min-width: 1200px) {
-       .card__item {
+       .trending__item {
            width: calc((100% - 32px) / 3);
        }
    }

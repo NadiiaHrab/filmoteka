@@ -1,22 +1,15 @@
 
-const ul = document.querySelector('.card__collection');
-const html = document.querySelector('html')
-const btn = document.querySelector('.btn');
-const input = document.querySelector('.input')
 
-
+import renderFilmsMarkup from './filmsListMarkupTempl';
+const ul = document.querySelector('.trending__collection');
 
 const BASE_URL = 'https://api.themoviedb.org/3/';
 const TRENDING = 'trending/movie/week';
 const API_KEY = '1d8f1c2313e3ed4d118cc85bb96261b9';
- 
+
     getFetchTrending()
-        .then(renderTrendingCard)
+        .then(renderCard)
         .catch((error) => console.log(error));
-
-
-
-// 
 
 function getFetchTrending() {
        return fetch(`${BASE_URL}${TRENDING}?api_key=${API_KEY}&language=en-US&page=1&include_adult=false`)
@@ -26,61 +19,73 @@ function getFetchTrending() {
         .then(data => data.results)
 }
 
+// function renderFilmsMarkup(films) {
+//     const murkup = makeFilmsMarkup(films);
+//     ul.insertAdjacentHTML('beforeend', murkup)
+// }
 
- 
-function renderTrendingCard(films) {
-    const cardEl = films.map(film => {
-        return `<li class="card__item">
-    <img class=" card__img" src="https://www.themoviedb.org/t/p/w500${film.poster_path}"
-      onerror="this.onerror=null;this.src='https://subscribenow.com.au/time/asia/Solo/Content/Images/noCover.gif'" loading="lazy"
-      alt="${film.title}" title="${film.title}" data-id="${film.id}" width="280"/>
-<h3 class="card__title">${film.title}</h3>
-     <div class="card-list__wrap">
-<div class="card-field">
-    <ul class="list">
-        <li class="item">
-            <p class="text__vote">${film.release_date}</p>
-        </li>
-    </ul>
-</div>
+function renderCard(films) {
+  ul.innerHTML = renderFilmsMarkup(films);
+}
 
-   </div>          
+// function renderTrendingCard(films) {
+//     const cardEl = films.map(film => {
+//         return `<li class="trending__item">
+//     <img class=" card__img" src="https://www.themoviedb.org/t/p/w500${film.poster_path}"
+//       onerror="this.onerror=null;this.src='https://subscribenow.com.au/time/asia/Solo/Content/Images/noCover.gif'" loading="lazy"
+//       alt="${film.title}" title="${film.title}" data-id="${film.id}" width="280"/>
+// <h3 class="card__title">${film.title}</h3>
+// <div class="card-field">
+//     <p class="text__vote">${film.release_date}</p>
     
+// </div>
 
-</li>`
+// </li>`
         
-    }).join('');
+//     }).join('');
 
-    ul.insertAdjacentHTML('beforeend', cardEl);
-    // return cardEl;
-};
-
-
-// ul.addEventListener('click', () => {
-//     getIdApi(e.target.dataset.id)
-//         .then(data => {
-//             if (e.target.nodeName !== 'IMG') return;
-
-//         });
+//     ul.insertAdjacentHTML('beforeend', cardEl);
+//     // return cardEl;
+// };
 
 
-// })
+
+// фуккція Вови------------------------
 
 
-// async function fetchFilm(searchQuery) {
-//     try {
-//         const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&page=1&include_adult=false&query=${searchQuery}`);
-//         const results = response.json();
-//         return results;
-//     } catch (error) {
-//         console.log(error);
-//     }
+// async function takeGanres() {
+//   try {
+//     const response = await axios.get(
+//       'https://api.themoviedb.org/3/movie/157336?api_key=1234dced32e7dcd076b4111d81f37c06'
+//     );
+//     renderGanres(response.data);
+//   } catch (error) {
+//     console.log('error', error);
+//   }
+// }
+
+// const createInfoGanres = info =>
+//   <li>Жанри ${info.genres.map(el => el.name).join(', ')}</li>;
+
+// function getFetchGenres() {
+//         return fetch(`${BASE_URL}${GENRES}?api_key=${API_KEY}&language=en-US&page=1&include_adult=false`)
+//         .then(response =>
+//         response.json()
+//         )
+//         .then(data => data.results)
 // }
 
 
 
+
+
+
+
+
+
+
 // function renderCard(films) {
-//     const murkup = renderModalCard(films);
+//     const murkup = render(films);
 //     ul.insertAdjacentHTML('beforeend', murkup)
 // }
 
@@ -124,18 +129,3 @@ function renderTrendingCard(films) {
     
 // };
 
-
-
-   // return fetch(`${BASE_URL}?key=${API_KEY}&q=${this.searchQuery}&${filter}&per_page=40&page=${this.page}`)
-        //   .then(response => response.json())
-        //   .then(data => return data.hits);
-
-// function fetchOneMovieInfo(movie_id) {
-//   const url = `https://api.themoviedb.org/3/movie/${movie_id}?api_key=${API_KEY}`;
-//   return fetch(url)
-//     .then(response => response.json())
-//     .then(data => ({
-//       ...data,
-//       popularity: data.popularity.toFixed(1),
-//     }));
-// }
