@@ -26,6 +26,27 @@ function renderFilmsMarkup(films) {
 
 
 
+// function renderTrendingCard(films) {
+//   const cardEl = films
+//     .map(film => {
+//       return `<li class="trending__item">
+//     <img class=" card__img" src="https://www.themoviedb.org/t/p/w500${film.poster_path}"
+//       onerror="this.onerror=null;this.src='https://subscribenow.com.au/time/asia/Solo/Content/Images/noCover.gif'" loading="lazy"
+//       alt="${film.title}" title="${film.title}" data-id="${film.id}" width="280"/>
+// <h3 class="card__title">${film.title}</h3>
+// <div class="card-field">
+//     <p class="text__vote">${film.release_date}</p>
+
+// </div>
+
+// </li>`;
+//     })
+//     .join('');
+
+//   ul.insertAdjacentHTML('beforeend', cardEl);
+//   // return cardEl;
+// }
+
 
 
 // function renderCard(films) {
