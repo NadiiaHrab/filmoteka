@@ -1,24 +1,42 @@
 
-
+const Pagination = tui.Pagination;
 import makeFilmsMarkup from './filmsListMarkupTempl.js';
 const ul = document.querySelector('.trending__collection');
+
+const container = document.getElementById('tui-pagination-container');
+const options = {
+  itemsPerPage: 20,
+  visiblePages: 5,
+
+}
 
 const BASE_URL = 'https://api.themoviedb.org/3/';
 const TRENDING = 'trending/movie/week';
 const API_KEY = '1d8f1c2313e3ed4d118cc85bb96261b9';
 
-    getFetchTrending()
-        .then(renderFilmsMarkup)
-        .catch((error) => console.log(error));
+getFetchTrending().then(() => {
+  new Pagination(container, options).on(
+    'afterMove',
+    function (eventData) {
+      // console.log('The current page is ' + eventData.page);
+      getFetchTrending(eventData.page);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  );
+});
 
-function getFetchTrending() {
-       return fetch(`${BASE_URL}${TRENDING}?api_key=${API_KEY}&language=en-US&page=1&include_adult=false`)
-        .then(response =>
-        response.json()
-        )
-        .then(data => data.results)
+function getFetchTrending(page = 1) {
+  return fetch(
+    `${BASE_URL}${TRENDING}?api_key=${API_KEY}&language=en-US&page=${page}&include_adult=false`
+  )
+    .then(response => response.json())
+    .then(data => {
+      options.totalItems = data.total_results;
+      return data.results;
+    })
+    .then(renderFilmsMarkup)
+    .catch(error => console.log(error));
 }
-
 function renderFilmsMarkup(films) {
   ul.innerHTML = makeFilmsMarkup(films);
 }
@@ -26,6 +44,8 @@ function renderFilmsMarkup(films) {
 
 
 
+      
+      
 // function renderTrendingCard(films) {
 //   const cardEl = films
 //     .map(film => {
@@ -89,8 +109,6 @@ function renderFilmsMarkup(films) {
 //   }
 // }
 
-// const createInfoGanres = info =>
-//   <li>Жанри ${info.genres.map(el => el.name).join(', ')}</li>;
 
 // function getFetchGenres() {
 //         return fetch(`${BASE_URL}${GENRES}?api_key=${API_KEY}&language=en-US&page=1&include_adult=false`)
